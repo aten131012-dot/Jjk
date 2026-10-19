@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXORA × MEEN</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{--l:#262626;--m:#8a8a8a;--h:'Orbitron','Segoe UI',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:#000;color:#fff;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;line-height:1.5}
+#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;background:#000a;backdrop-filter:blur(8px);border-bottom:1px solid var(--l)}
+.logo{font:900 15px var(--h);letter-spacing:.2em}
+.btn{background:#fff;color:#000;border:1px solid #fff;padding:11px 18px;border-radius:6px;font:700 13px var(--h);letter-spacing:.08em;cursor:pointer}
+.btn.g{background:#0008;color:#fff;border-color:#555}.btn.g:hover,.btn.on{background:#fff;color:#000}
+.btn.s{padding:6px 11px;font-size:11px}.btn:active{transform:scale(.96)}
+main{position:relative;z-index:2;max-width:980px;margin:0 auto;padding:0 16px 60px}
+.hero{height:62vh;min-height:360px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;padding-bottom:10px}
+.hero h1{font:900 clamp(26px,7vw,52px) var(--h);letter-spacing:.14em;text-shadow:0 0 24px #fff6}
+.hero p{color:var(--m);font-size:13px;margin-top:6px}
+.tabs{display:flex;gap:10px;justify-content:center;margin:16px 0 22px;flex-wrap:wrap}
+.pn{border:1px solid #333;background:#050505cc;backdrop-filter:blur(6px);border-radius:12px;padding:18px;box-shadow:0 0 30px #fff1}
+.nt{border:1px dashed #666;border-radius:8px;padding:9px 13px;text-align:center;margin-bottom:16px;font-size:13px;background:#000a}
+pre{white-space:pre-wrap;word-break:break-all;font:12.5px/1.6 ui-monospace,Menlo,monospace;background:#000;border:1px solid var(--l);border-radius:8px;padding:13px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.cd{border:1px solid #333;background:#050505e6;border-radius:12px;overflow:hidden;transition:.25s}
+.cd:hover{border-color:#fff;transform:translateY(-4px);box-shadow:0 0 22px #fff3}
+.cd img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:.3s;background:#161616}
+.cd .in{padding:12px 14px}.cd h3{font-size:14px;margin-bottom:8px}
+.st{display:flex;justify-content:space-between;font-size:13px;color:var(--m);padding:2px 0}.st b{color:#fff;font:700 15px var(--h)}
+.id{font:11px ui-monospace,monospace;color:#555;margin-top:6px}
+.tp{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--m);font-size:13px;gap:8px}
+.hide{display:none!important}
+.md{position:fixed;inset:0;background:#000d;display:flex;justify-content:center;align-items:flex-start;overflow:auto;padding:18px;z-index:20}
+.pl{background:#0a0a0a;border:1px solid #555;border-radius:14px;padding:20px;width:100%;max-width:640px}
+h2{font:700 16px var(--h);letter-spacing:.1em;margin-bottom:10px}
+label{display:block;font-size:12px;color:var(--m);margin:11px 0 4px}
+input,textarea{width:100%;background:#000;color:#fff;border:1px solid #333;border-radius:8px;padding:10px;font:14px inherit}
+input:focus,textarea:focus{outline:0;border-color:#fff}
+textarea{min-height:76px;font:12px ui-monospace,monospace;resize:vertical}
+.rw{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.mr{border:1px solid var(--l);border-radius:10px;padding:10px;margin-top:10px}
+.mr .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ck{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--m);margin-top:8px}.ck input{width:auto}
+.ms{font-size:13px;margin-top:10px;color:#ccc}
+.ts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:10px 20px;border-radius:30px;font-weight:700;font-size:14px;z-index:40}
+#in{position:fixed;inset:0;background:#000;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .8s,transform .8s}
+#in.out{opacity:0;transform:scale(1.15);pointer-events:none}
+#in::after{content:"";position:absolute;left:0;right:0;height:3px;background:#fff;box-shadow:0 0 22px 6px #fff8;animation:scan 1.6s linear infinite}
+#il2{font:900 clamp(22px,7vw,40px) var(--h);letter-spacing:.3em;animation:gl 1.2s steps(2) infinite}
+#il{font:12px ui-monospace,monospace;color:var(--m);letter-spacing:.15em;min-height:18px}
+#ibw{width:min(260px,70vw);height:3px;background:#222}#ib{height:100%;width:0;background:#fff;transition:width .4s}
+.hero h1,.hero p,.tabs,#v1{opacity:0;transform:translateY(26px)}
+body.ready .hero h1{animation:up .9s .1s forwards}body.ready .hero p{animation:up .9s .35s forwards}body.ready .tabs{animation:up .9s .6s forwards}body.ready #v1{animation:up .9s .85s forwards}
+body.ready header{animation:dn .8s both}
+@keyframes up{to{opacity:1;transform:none}}@keyframes dn{from{transform:translateY(-100%)}}
+@keyframes scan{from{top:0}to{top:100%}}
+@keyframes gl{0%{text-shadow:2px 0 #fff6,-2px 0 #fff3}50%{text-shadow:-3px 0 #fff6,3px 0 #fff3}100%{text-shadow:none}}
+body{background:radial-gradient(ellipse at 50% -10%,#3a0000 0%,#0a0000 45%,#000 75%)}
+.logo{text-shadow:0 0 14px #e10600}header{border-bottom-color:#5a0000}
+.btn{background:#e10600;border-color:#e10600;color:#fff;box-shadow:0 0 16px #e1060055}.btn.g{background:#0009;border-color:#7a0000;box-shadow:none}
+.btn.g:hover,.btn.on{background:#e10600;color:#fff;border-color:#ff3b30}a.btn{text-decoration:none;display:inline-block}
+.hero h1{text-shadow:0 0 30px #e10600aa}.hero p{color:#c46}
+.pn{border-color:#5a0000;box-shadow:0 0 30px #e1060022}.nt{border-color:#e10600}
+pre{border-color:#5a0000;color:#ffb3b0}
+.cd{border-color:#3d0000}.cd:hover{border-color:#e10600;box-shadow:0 0 24px #e1060066}
+.st b{color:#ff3b30}.id{color:#7a3b3b}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.sum div{border:1px solid #5a0000;background:#0a0000cc;border-radius:12px;padding:14px 6px;text-align:center}
+.sum b{display:block;font:900 clamp(22px,6vw,34px) var(--h);color:#ff3b30;text-shadow:0 0 14px #e1060088}.sum span{font-size:12px;color:var(--m)}
+.dcb{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:26px}.dcb p{color:var(--m);font-size:13px}
+.pl{border-color:#7a0000}input:focus,textarea:focus{border-color:#e10600}.ts{background:#e10600;color:#fff}
+#ib{background:#e10600}#in::after{background:#e10600;box-shadow:0 0 22px 6px #e1060099}
+@media(max-width:560px){.grid{grid-template-columns:1fr 1fr}.hero{height:56vh}}
+.btn{border-radius:0;letter-spacing:.1em;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);transition:.2s}.btn:hover{filter:brightness(1.25)}.btn.s{clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,#0000 0 2px,#0000002e 2px 3px)}
+.tk{position:relative;z-index:3;overflow:hidden;white-space:nowrap;background:#e10600;color:#000;font:900 12px var(--h);letter-spacing:.25em;padding:5px 0}
+.tk span{display:inline-block;animation:mq 22s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.stp{position:relative;border:1px solid #4a0000;border-left:3px solid #e10600;background:#0a0000d9;padding:16px 16px 18px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);transition:.25s}
+.stp:hover{background:#1a0000;transform:translateY(-4px);border-color:#ff3b30}
+.stp i{display:block;font:900 38px var(--h);font-style:normal;color:transparent;-webkit-text-stroke:1px #ff3b30;margin-bottom:4px}
+.stp h3{font:700 15px var(--h);letter-spacing:.06em;margin-bottom:6px}.stp p{font-size:13px;color:#b9a0a0}
+.go{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+#v0{opacity:0;transform:translateY(26px)}body.ready #v0{animation:up .9s .85s forwards}body.ready #v1{animation:up .5s forwards}
+#in{display:none!important}
+#gt{position:fixed;inset:0;z-index:90;background:#000c;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto;transition:opacity .5s}#gt.out{opacity:0;pointer-events:none}
+.gb{width:100%;max-width:420px;border:1px solid #5a0000;border-top:3px solid #e10600;background:#0a0000f2;padding:24px 22px;text-align:center;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);box-shadow:0 0 40px #e1060044}
+.gl{font:900 24px var(--h);letter-spacing:.2em;text-shadow:0 0 18px #e10600}.gp{color:var(--m);font-size:13px;margin-top:4px}
+.gs{margin-top:18px;font-size:14px;text-align:left}.gs b{display:inline-block;background:#e10600;width:22px;height:22px;text-align:center;border-radius:50%;margin-right:8px;font-size:13px;line-height:22px}
+.gh{font-size:11px;color:var(--m);margin:6px 0 10px;text-align:left}.gb .btn{width:100%;margin-top:10px}.gb input{text-align:center;letter-spacing:.08em;margin-top:8px}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="gt"><div class="gb"><div class="gl">NEXORA × MEEN</div><p class="gp">ยืนยันตัวตนผ่านดิสคอร์ดก่อนเข้าเว็บ</p>
+<div class="gs"><b>1</b>เข้าดิสคอร์ดของเรา</div><a class="btn" href="https://discord.gg/Qdaj957G4" target="_blank" rel="noopener">💬 เข้าดิสคอร์ด</a>
+<div class="gs"><b>2</b>ใส่ชื่อผู้ใช้ดิสคอร์ดของคุณ</div><input id="gi" placeholder="ชื่อผู้ใช้ (username)" autocapitalize="off" autocomplete="off">
+<div class="gh">ใช้ชื่อผู้ใช้ (username) ที่ขึ้นในโปรไฟล์ดิสคอร์ด หรือชื่อเล่นในเซิร์ฟเวอร์ก็ได้</div>
+<button class="btn g" id="gc">ตรวจสอบ</button><div class="ms" id="gx"></div><button class="btn hide" id="gn">🚀 เข้าเว็บ</button></div></div>
+<div id="in"><div id="il2">NEXORA</div><div id="il">BOOTING...</div><div id="ibw"><div id="ib"></div></div></div>
+<header><div class="logo" id="st">NEXORA × MEEN</div><div style="display:flex;gap:8px"><a class="btn s" href="https://discord.gg/Qdaj957G4" target="_blank" rel="noopener">💬 DISCORD</a><button class="btn g s" id="ab">⚙ ADMIN</button></div></header>
+<div class="tk"><span>NEXORA × MEEN • ROBLOX SCRIPT • UPDATED DAILY • JOIN DISCORD • NEXORA × MEEN • ROBLOX SCRIPT • UPDATED DAILY • JOIN DISCORD • </span></div>
+<main>
+<div class="hero"><h1 id="ht">NEXORA × MEEN</h1><p>ROBLOX SCRIPT HUB • ONLINE</p></div>
+<div class="tabs"><button class="btn on" id="t0">🏠 หน้าแรก</button><button class="btn g" id="t1">📜 ไปเอาสคริป</button><button class="btn g" id="t2">🗺 ดูแมพ</button></div>
+<div id="nt" class="nt hide"></div>
+<section id="v0"><div class="steps">
+<div class="stp"><i>01</i><h3>คัดลอกสคริป</h3><p>กดแท็บ "ไปเอาสคริป" แล้วกดปุ่มคัดลอก</p></div>
+<div class="stp"><i>02</i><h3>เลือกแมพ</h3><p>ดูแมพที่รองรับในแท็บ "ดูแมพ" แล้วเข้าเล่นใน Roblox</p></div>
+<div class="stp"><i>03</i><h3>วางแล้วรัน</h3><p>เปิดตัวรันสคริปต์ วางโค้ด แล้วกด Execute</p></div>
+<div class="stp"><i>04</i><h3>มีปัญหา?</h3><p>เข้าดิสคอร์ดแจ้งทีมงานได้ทันที</p></div></div>
+<div class="go"><button class="btn" id="g1">📜 ไปเอาสคริป</button><button class="btn g" id="g2">🗺 ดูแมพ</button><a class="btn g" href="https://discord.gg/Qdaj957G4" target="_blank" rel="noopener">💬 ดิสคอร์ด</a></div></section>
+<section id="v1" class="pn hide"><b style="font-family:var(--h);letter-spacing:.1em">SCRIPT</b>
+<p style="color:var(--m);font-size:13px;margin-top:4px">กดคัดลอก แล้ววางในตัวรันสคริปต์ตอนอยู่ในเกม</p>
+<pre id="cd"></pre><button class="btn" id="cp">คัดลอกสคริป</button></section>
+<section id="v2" class="hide"><div class="tp"><span id="mi">กำลังโหลด...</span><button class="btn g s" id="rf">↻ รีเฟรช</button></div><div class="sum" id="sm"></div><div class="grid" id="gr"></div></section>
+<div class="pn dcb"><div><b>เข้าร่วมดิสคอร์ดของเรา</b><p>รับอัปเดตสคริปก่อนใคร • แจ้งปัญหา • พูดคุย</p></div><a class="btn" href="https://discord.gg/Qdaj957G4" target="_blank" rel="noopener">💬 เข้าดิสคอร์ด</a></div></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============ ตั้งค่า ============ */
+const DEMO = false;                       // true = เวอร์ชันทดลอง (ข้อมูลสุ่ม) / false = ของจริง
+const ADMIN_EMAIL = "aten131012@gmail.com";
+const FIREBASE_CONFIG = null;            // วาง config จาก Firebase แทน null
+const VERIFY_URL = "";
+const WEBHOOK = "https://discord.com/api/webhooks/1560852608439287899/m2SGV55rG2HjNpvj_bgN61BhVOjLkjIWuRZ6e6oIMrajjLk-5gXQ7Nr-zMbJuUurvBBH";   // Webhook แจ้งเตือนเมื่อมีคนเข้าเว็บ   // ลิงก์ Cloudflare Worker ที่ตรวจ Discord ID
+const WINDOW_MS = 2*60*1000;             // นับคนที่ส่งสัญญาณในช่วง 3 นาทีล่าสุด
+const DEFAULTS = {
+  title:"NEXORA × MEEN", notice: DEMO?"โหมดทดลอง: ตัวเลขผู้รัน/เซิร์ฟเวอร์เป็นข้อมูลสุ่ม":"",
+  loadstring:'loadstring(game:HttpGet("https://raw.githubusercontent.com/aten131012-dot/NEXORA-X-MEEN/refs/heads/main/NEXORA_MEEN-2.lua-1_obf.lua"))()',
+  sourceUrl:"https://raw.githubusercontent.com/aten131012-dot/NEXORA-X-MEEN/refs/heads/main/NEXORA_MEEN-2.lua.txt",
+  maps:[]
+};
+const FALLBACK_IDS=["537413528","142823291","2753915549","124216119978534","107778070777162","12355337193"];
+const DEMO_NAMES={"537413528":"Build A Boat For Treasure","142823291":"Murder Mystery 2","2753915549":"Blox Fruits","124216119978534":"Ride A Pet","12355337193":"MVSD"};
+/* ================================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let cfg=JSON.parse(JSON.stringify(DEFAULTS)),fileIds=[],info={},stats={},db=null,auth=null,user=null,unsub=null;
+const toast=t=>{const d=document.createElement("div");d.className="ts";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1800)};
+async function copy(t){try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}toast("คัดลอกแล้ว ✓")}
+async function J(u){const c=new AbortController(),t=setTimeout(()=>c.abort(),9000);try{const r=await fetch(u,{signal:c.signal});if(!r.ok)throw 0;return await r.json()}finally{clearTimeout(t)}}
+const icon=n=>"data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1c1c1c"/><text x="50" y="66" font-size="48" font-family="sans-serif" font-weight="800" fill="#fff" text-anchor="middle">${(n||"?").trim()[0].toUpperCase()}</text></svg>`);
+
+const thumb=p=>`https://www.roblox.com/asset-thumbnail/image?assetId=${p}&width=420&height=420&format=png`;
+function imgErr(e){if(!e.dataset.t&&!e.src.includes("asset-thumbnail")){e.dataset.t=1;e.src=thumb(e.dataset.p)}else{e.onerror=null;e.src=icon(e.dataset.n)}}
+/* ---------- 3D หุ่นยนต์ ---------- */
+(function(){try{
+const R=new THREE.WebGLRenderer({canvas:$("#c"),antialias:true,alpha:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(45,1,.1,100);C.position.set(0,.2,8);
+S.add(new THREE.AmbientLight(0xffffff,.4));
+const a=new THREE.PointLight(0xffffff,1.3);a.position.set(4,4,6);S.add(a);
+const b=new THREE.PointLight(0xff2020,1.4);b.position.set(-5,-2,3);S.add(b);
+const W=new THREE.MeshStandardMaterial({color:0x3a3a3a,metalness:.9,roughness:.28}),
+K=new THREE.MeshStandardMaterial({color:0x040404,metalness:.9,roughness:.08}),
+G=new THREE.MeshBasicMaterial({color:0xff1f1f});
+const M=(g,m,x=0,y=0,z=0)=>{const o=new THREE.Mesh(g,m);o.position.set(x,y,z);return o};
+const bot=new THREE.Group(),head=new THREE.Group();
+head.add(M(new THREE.BoxGeometry(2.2,1.7,1.8),W));
+head.add(M(new THREE.BoxGeometry(1.85,.8,.12),K,0,.1,.93));
+const eL=M(new THREE.BoxGeometry(.36,.2,.05),G,-.45,.12,1),eR=M(new THREE.BoxGeometry(.36,.2,.05),G,.45,.12,1);head.add(eL,eR);
+for(let i=-2;i<=2;i++)head.add(M(new THREE.BoxGeometry(.1,.07,.04),G,i*.17,-.45,.99));
+[-1,1].forEach(s=>{const e=M(new THREE.CylinderGeometry(.3,.3,.3,24),K,s*1.2,0,0);e.rotation.z=Math.PI/2;head.add(e)});
+head.add(M(new THREE.CylinderGeometry(.03,.03,.7),W,0,1.2,0),M(new THREE.SphereGeometry(.1,16,16),G,0,1.6,0));
+bot.add(head,M(new THREE.CylinderGeometry(.35,.45,.5,20),K,0,-1.05,0),M(new THREE.BoxGeometry(3,.7,1.4),W,0,-1.6,0));
+bot.position.y=.6;bot.scale.setScalar(.01);S.add(bot);
+const ring=(r,t)=>{const o=M(new THREE.TorusGeometry(r,.012,8,120),G);o.rotation.x=t;S.add(o);return o};
+const r1=ring(3.1,1.2),r2=ring(3.5,.5);
+const ico=M(new THREE.IcosahedronGeometry(4.2,1),new THREE.MeshBasicMaterial({color:0x6a0000,wireframe:true}));S.add(ico);
+const grid=new THREE.GridHelper(60,60,0xaa0000,0x2a0000);grid.position.y=-3;S.add(grid);
+const pg=new THREE.BufferGeometry(),pos=[];for(let i=0;i<500;i++)pos.push((Math.random()-.5)*40,(Math.random()-.5)*24,(Math.random()-.5)*30-6);
+pg.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));S.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xff3030,size:.05})));
+let mx=0,my=0;addEventListener("pointermove",e=>{mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1});
+const rs=()=>{R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.position.z=innerWidth<600?11:8;C.updateProjectionMatrix()};rs();addEventListener("resize",rs);
+let t=0,k=.01;(function f(){requestAnimationFrame(f);t+=.016;if(window.__go)k+=(1-k)*.05;bot.scale.setScalar(k);
+head.rotation.y+=(mx*.6-head.rotation.y)*.06;head.rotation.x+=(my*.3-head.rotation.x)*.06;
+bot.position.y=.6+Math.sin(t*1.5)*.12;r1.rotation.z=t*.5;r2.rotation.z=-t*.35;ico.rotation.y=t*.12;ico.rotation.x=t*.07;
+const bl=(t%4)<.15?.1:1;eL.scale.y=eR.scale.y=bl;
+const sc=Math.min(1,scrollY/500);bot.position.y+=sc*2;grid.position.z=(t*2)%1;
+R.render(S,C)})();
+}catch(e){}})();
+
+/* ---------- ข้อมูลแมพ ---------- */
+function applyCfg(){$("#st").textContent=$("#ht").textContent=document.title=cfg.title;$("#cd").textContent=cfg.loadstring;const n=$("#nt");n.textContent=cfg.notice||"";n.classList.toggle("hide",!cfg.notice)}
+function finalMaps(){const m=new Map();(cfg.maps||[]).forEach(x=>m.set(String(x.id),{...x,id:String(x.id)}));
+[...fileIds,...Object.keys(stats)].forEach(id=>{if(!m.has(id))m.set(id,{id,name:"",img:"",hidden:false,auto:true})});return[...m.values()]}
+async function loadIds(){if(DEMO){fileIds=FALLBACK_IDS;return}
+try{const tx=await(await fetch(cfg.sourceUrl,{cache:"no-store"})).text(),ids=[];
+tx.split("\n").forEach(l=>{if(l.trim().startsWith("--"))return;const x=l.match(/\[\s*(\d{5,})\s*\]\s*=\s*["']/);if(x&&!ids.includes(x[1]))ids.push(x[1])});fileIds=ids.length?ids:FALLBACK_IDS}catch(e){fileIds=FALLBACK_IDS}}
+async function loadInfo(){const L=finalMaps().filter(m=>!m.hidden);
+if(DEMO){L.forEach(m=>{const n=DEMO_NAMES[m.id]||"แมพ "+m.id;info[m.id]={name:n,icon:icon(m.name||n)}});return}
+const u={};await Promise.all(L.map(async m=>{try{u[m.id]=(await J(`https://apis.roproxy.com/universes/v1/places/${m.id}/universe`)).universeId}catch(e){}}));
+const ids=Object.values(u).filter(Boolean);if(!ids.length)return;const by=id=>Object.keys(u).find(k=>u[k]===id);
+try{(await J(`https://games.roproxy.com/v1/games?universeIds=${ids}`)).data.forEach(g=>{const k=by(g.id);if(k)(info[k]=info[k]||{}).name=g.name})}catch(e){}
+try{(await J(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${ids}&size=256x256&format=Png`)).data.forEach(g=>{const k=by(g.targetId);if(k)(info[k]=info[k]||{}).icon=g.imageUrl})}catch(e){}}
+function render(){const L=finalMaps().filter(m=>!m.hidden);let tp=0,ts=0,td=0;
+$("#gr").innerHTML=L.map(m=>{const i=info[m.id]||{},s=stats[m.id]||{u:0,j:0},nm=m.name||i.name||(s.n)||"แมพ "+m.id,im=m.img||i.icon||thumb(m.id);tp+=s.u;ts+=s.j;td+=(s.d||0);
+return `<div class="cd">${im?`<img src="${esc(im)}" alt="" referrerpolicy="no-referrer" data-p="${esc(m.id)}" data-n="${esc(nm)}" onerror="imgErr(this)">`:`<div style="aspect-ratio:1;background:#161616"></div>`}<div class="in"><h3>${esc(nm)}</h3>
+<div class="st"><span>🔴 รันอยู่ตอนนี้</span><b>${s.u}</b></div><div class="st"><span>🖥 เซิร์ฟเวอร์</span><b>${s.j}</b></div><div class="st"><span>📅 24 ชม.ล่าสุด</span><b>${s.d||0}</b></div><div class="id">PlaceId ${esc(m.id)}</div></div></div>`}).join("")||'<p style="color:var(--m)">ยังไม่มีแมพ</p>';
+$("#sm").innerHTML=`<div><b>${tp}</b><span>รันอยู่ตอนนี้</span></div><div><b>${ts}</b><span>เซิร์ฟเวอร์</span></div><div><b>${td}</b><span>24 ชม.ล่าสุด</span></div>`;$("#mi").textContent=`${L.length} แมพ • สแกนทุก 5 วิ • ${new Date().toLocaleTimeString("th-TH")}`+($("#mi").dataset.err?" • ⚠ "+$("#mi").dataset.err:"")}
+function demoTick(){FALLBACK_IDS.forEach(id=>{const o=stats[id]||{u:Math.floor(Math.random()*40)+3,j:0};o.u=Math.max(1,o.u+Math.floor(Math.random()*5)-2);o.j=Math.max(1,Math.ceil(o.u/3));o.d=Math.max(o.u,o.d||o.u*4)+Math.floor(Math.random()*3);stats[id]=o});render()}
+let raw={};
+function scan(){const p={},now=Date.now();Object.values(raw).forEach(x=>{if(x.t<now-864e5)return;const o=p[x.p]=p[x.p]||{us:new Set,js:new Set,ds:new Set,n:x.n};o.ds.add(x.u);if(x.t>now-WINDOW_MS){o.us.add(x.u);o.js.add(x.j)}});stats={};Object.keys(p).forEach(k=>stats[k]={u:p[k].us.size,j:p[k].js.size,d:p[k].ds.size,n:p[k].n});render()}
+function listen(){setInterval(()=>{if(!DEMO&&db)scan()},5000);if(DEMO){demoTick();setInterval(demoTick,5000);return}
+if(!db){$("#mi").dataset.err="ยังไม่ได้ตั้งค่า Firebase (FIREBASE_CONFIG) จึงนับคนรันไม่ได้";render();return}
+unsub&&unsub();
+unsub=db.collection("runs").where("t",">",Date.now()-864e5).onSnapshot(sn=>{delete $("#mi").dataset.err;raw={};sn.forEach(d=>{raw[d.id]=d.data()});scan();
+},e=>{$("#mi").dataset.err="เชื่อมต่อฐานข้อมูลไม่ได้: "+(e.code||e.message)+" (เช็ค Firestore Rules)";render()})}
+async function refresh(){$("#mi").textContent="กำลังโหลด...";await loadIds();render();await loadInfo();render()}
+function show(v){[0,1,2].forEach(i=>{$("#v"+i).classList.toggle("hide",v!=i);$("#t"+i).className="btn"+(v==i?" on":" g")});if(v==2)refresh()}
+$("#t0").onclick=()=>show(0);$("#t1").onclick=()=>show(1);$("#t2").onclick=()=>show(2);$("#g1").onclick=()=>show(1);$("#g2").onclick=()=>show(2);$("#cp").onclick=()=>copy(cfg.loadstring);$("#rf").onclick=refresh;
+
+/* ---------- Firebase + แอดมิน ---------- */
+const LS=src=>new Promise((o,n)=>{const s=document.createElement("script");s.src=src;s.onload=o;s.onerror=n;document.head.appendChild(s)});
+async function initFB(){if(DEMO||!FIREBASE_CONFIG)return;try{const b="https://www.gstatic.com/firebasejs/10.12.2/firebase-";await LS(b+"app-compat.js");await LS(b+"auth-compat.js");await LS(b+"firestore-compat.js");
+firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();auth.onAuthStateChanged(u=>user=u)}catch(e){}}
+async function loadCfg(){if(DEMO){try{const v=localStorage.getItem("nx_cfg");if(v)cfg={...cfg,...JSON.parse(v)}}catch(e){}return}
+if(db)try{const d=await db.doc("site/config").get();if(d.exists)cfg={...cfg,...d.data()}}catch(e){}}
+const cm=()=>$("#md")?.remove();
+function modal(h){cm();const m=document.createElement("div");m.className="md";m.id="md";m.innerHTML=`<div class="pl">${h}</div>`;m.onmousedown=e=>{if(e.target===m)cm()};document.body.appendChild(m)}
+$("#ab").onclick=()=>{if(DEMO)return gate();if(!auth)return modal(`<h2>ระบบแอดมินยังไม่เปิด</h2><p class="ms">ใส่ FIREBASE_CONFIG ในไฟล์ก่อน</p><div class="rw"><button class="btn" onclick="cm()">ปิด</button></div>`);
+gate()};
+function gate(){modal(`<h2>ยืนยันตัวตนแอดมิน</h2><label>ใส่อีเมลแอดมินก่อน</label><input id="ge" type="email" placeholder="อีเมลแอดมิน" autocomplete="username"><div class="ms" id="gm"></div><div class="rw"><button class="btn" id="gg">ต่อไป</button><button class="btn g" onclick="cm()">ปิด</button></div>`);
+const go=()=>{const e=$("#ge").value.trim().toLowerCase();if(e!==ADMIN_EMAIL){$("#gm").textContent="อีเมลนี้ไม่ใช่แอดมิน";return}
+if(DEMO)return panel();user&&user.email===ADMIN_EMAIL&&user.emailVerified?panel():login()};
+$("#gg").onclick=go;$("#ge").onkeydown=e=>{if(e.key==="Enter")go()};$("#ge").focus()}
+function login(up){modal(`<h2>${up?"สมัครแอดมิน":"เข้าสู่ระบบแอดมิน"}</h2><label>อีเมล</label><input id="em" type="email" value="${ADMIN_EMAIL}"><label>รหัสผ่าน</label><input id="pw" type="password"><div class="ms" id="lm"></div>
+<div class="rw"><button class="btn" id="go">${up?"สมัคร":"เข้าสู่ระบบ"}</button><button class="btn g" id="sw">${up?"มีบัญชีแล้ว":"สมัครแอดมิน"}</button><button class="btn g" onclick="cm()">ปิด</button></div>`);
+$("#sw").onclick=()=>login(!up);$("#go").onclick=async()=>{const e=$("#em").value.trim().toLowerCase(),p=$("#pw").value,m=$("#lm");if(e!==ADMIN_EMAIL){m.textContent="อีเมลนี้ไม่ได้รับอนุญาต";return}
+try{if(up){const c=await auth.createUserWithEmailAndPassword(e,p);await c.user.sendEmailVerification();await auth.signOut();m.textContent="ส่งลิงก์ยืนยันไปที่อีเมลแล้ว ยืนยันก่อนแล้วเข้าสู่ระบบ"}
+else{const c=await auth.signInWithEmailAndPassword(e,p);await c.user.reload();if(!auth.currentUser.emailVerified){await auth.currentUser.sendEmailVerification();await auth.signOut();m.textContent="ยังไม่ยืนยันอีเมล ส่งลิงก์ใหม่ให้แล้ว";return}user=auth.currentUser;panel()}}catch(x){m.textContent="ผิดพลาด: "+(x.code||x.message)}}}
+function panel(){modal(`<h2>แผงแอดมิน${DEMO?" (ทดลอง)":""}</h2><label>ชื่อเว็บ</label><input id="a1" value="${esc(cfg.title)}"><label>ประกาศ (ว่าง = ไม่แสดง)</label><input id="a2" value="${esc(cfg.notice)}">
+<label>โค้ดสคริปต์</label><textarea id="a3">${esc(cfg.loadstring)}</textarea><label>ลิงก์ไฟล์สคริปต์ที่อ่านได้ (ดึงรายชื่อแมพ)</label><input id="a4" value="${esc(cfg.sourceUrl)}">
+<h2 style="margin-top:20px">แมพ</h2><p class="ms">ชื่อ/รูปที่ว่างจะดึงอัตโนมัติ แมพจากไฟล์สคริปต์ให้ "ซ่อน" แทนการลบ</p><div id="am"></div>
+<div class="rw"><button class="btn g s" id="ad">+ เพิ่มแมพ</button></div><div class="ms" id="am2"></div>
+<div class="rw"><button class="btn" id="sv">บันทึก</button>${DEMO?"":'<button class="btn g" id="lo">ออกจากระบบ</button>'}<button class="btn g" onclick="cm()">ปิด</button></div>`);
+const bx=$("#am"),add=m=>{const d=document.createElement("div");d.className="mr";d.innerHTML=`<div class="g2"><div><label>PlaceId</label><input class="i" value="${esc(m.id)}" ${m.auto?"readonly":""}></div><div><label>ชื่อแมพ</label><input class="n" value="${esc(m.name)}" placeholder="อัตโนมัติ"></div></div>
+<label>ลิงก์รูป</label><input class="g" value="${esc(m.img)}" placeholder="อัตโนมัติ"><div class="ck"><input type="checkbox" class="h" ${m.hidden?"checked":""}> ซ่อน ${m.auto?"<span>• มาจากไฟล์/ข้อมูลจริง</span>":'<button class="btn g s" style="margin-left:auto">ลบ</button>'}</div>`;
+const x=d.querySelector("button");if(x)x.onclick=()=>d.remove();bx.appendChild(d)};
+finalMaps().forEach(add);$("#ad").onclick=()=>add({id:"",name:"",img:"",hidden:false});
+if($("#lo"))$("#lo").onclick=async()=>{await auth.signOut();cm();toast("ออกจากระบบแล้ว")};
+$("#sv").onclick=async()=>{const q=s=>[...bx.children].map(r=>r.querySelector(s));const maps=[...bx.children].map(r=>({id:r.querySelector(".i").value.trim(),name:r.querySelector(".n").value.trim(),img:r.querySelector(".g").value.trim(),hidden:r.querySelector(".h").checked})).filter(x=>/^\d+$/.test(x.id));
+const nx={title:$("#a1").value.trim()||DEFAULTS.title,notice:$("#a2").value.trim(),loadstring:$("#a3").value.trim(),sourceUrl:$("#a4").value.trim()||DEFAULTS.sourceUrl,maps};
+try{if(DEMO)localStorage.setItem("nx_cfg",JSON.stringify(nx));else await db.doc("site/config").set(nx);cfg={...cfg,...nx};applyCfg();cm();toast("บันทึกแล้ว ✓");render()}
+catch(e){$("#am2").textContent="บันทึกไม่ได้: "+(e.code||e.message)}}}
+(function(){const o=$("#in"),l=$("#il"),b=$("#ib"),L=["INITIALIZING CORE...","LOADING NEURAL LINK...","SYNCING MAPS...","ACCESS GRANTED"];let i=0;
+const s=setInterval(()=>{l.textContent=L[Math.min(i,3)];b.style.width=Math.min(100,(++i)*25)+"%";if(i>4){clearInterval(s);o.classList.add("out");window.__go=1;document.body.classList.add("ready");setTimeout(()=>o.remove(),900)}},420)})();
+(function(){document.body.classList.add("ready");window.__go=1;
+const ann=n=>{if(DEMO){toast("📢 ประกาศเข้าดิส: "+n+" เข้าเว็บ (ทดลอง)");return}if(!VERIFY_URL)return;try{if(sessionStorage.getItem("nx_v"))return;sessionStorage.setItem("nx_v","1")}catch(e){}fetch(VERIFY_URL+"?visit=1&name="+encodeURIComponent(n)+"&dev="+(/Mobi|Android/i.test(navigator.userAgent)?"มือถือ":"คอม")).catch(()=>{})};
+const gt=$("#gt");gt.remove();
+const visit=()=>{if(DEMO){toast("📢 ส่งแจ้งเตือนเข้าดิส: มีคนเข้าเว็บ (ทดลอง)");return}if(!WEBHOOK)return;try{if(sessionStorage.getItem("nx_v"))return;sessionStorage.setItem("nx_v","1")}catch(e){}
+fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:`🟢 มีคนเข้าเว็บ (${/Mobi|Android/i.test(navigator.userAgent)?"มือถือ":"คอม"}) • ${new Date().toLocaleString("th-TH",{timeZone:"Asia/Bangkok"})}`,allowed_mentions:{parse:[]}})}).catch(()=>{})};
+visit();return;let pass=null;try{pass=localStorage.getItem("nx_pass")}catch(e){}
+if(pass){ann(pass);gt.remove();if(DEMO){const r=document.createElement("button");r.className="btn g s";r.style.cssText="position:fixed;left:10px;bottom:10px;z-index:30";r.textContent="🔄 ดูหน้ายืนยันใหม่ (ทดลอง)";r.onclick=()=>{try{localStorage.removeItem("nx_pass")}catch(e){}location.reload()};document.body.appendChild(r)}return}
+document.body.style.overflow="hidden";const gx=$("#gx"),gn=$("#gn");
+let who="";const done=(id,nm)=>{who=id;try{localStorage.setItem("nx_pass",id)}catch(e){}gx.textContent="✅ ผ่านแล้ว"+(nm?" • ยินดีต้อนรับ "+nm:"");$("#gc").classList.add("hide");$("#gi").classList.add("hide");gn.classList.remove("hide")};
+$("#gc").onclick=async()=>{const id=$("#gi").value.trim();if(id.length<2||id.length>40){gx.textContent="ใส่ชื่อผู้ใช้ให้ถูกต้อง";return}
+gx.textContent="กำลังตรวจสอบ...";if(DEMO){setTimeout(()=>{if(id.toLowerCase()==="nexora")done(id,"ผู้ใช้ทดลอง");else gx.textContent="❌ ไม่พบชื่อนี้ในดิสคอร์ด (ทดลอง: ใช้ชื่อ nexora เพื่อดูตอนผ่าน)"},700);return}
+if(!VERIFY_URL){gx.textContent="ยังไม่ได้ตั้งค่าระบบตรวจสอบ (VERIFY_URL)";return}
+try{const r=await J(VERIFY_URL+"?name="+encodeURIComponent(id));if(r.ok)done(id,r.name);else gx.textContent="❌ ไม่พบชื่อนี้ในดิสคอร์ด ต้องกดเข้าดิสคอร์ดก่อนแล้วลองใหม่"}catch(e){gx.textContent="ตรวจสอบไม่ได้ ลองใหม่อีกครั้ง"}};
+gn.onclick=()=>{ann(who);gt.classList.add("out");document.body.style.overflow="";setTimeout(()=>gt.remove(),500)};
+})();
+(async()=>{applyCfg();await initFB();await loadCfg();applyCfg();await loadIds();listen();render()})();
+</script></body></html>
